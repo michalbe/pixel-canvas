@@ -5,14 +5,19 @@
   var contextName = 'pixel-2d';
 
   var pixelContext = function(context) {
+    var affectedPixels = [];
     var currentPosition = {
       x: 0,
       y: 0
     };
 
     // draw single pixel.
-    var p = function(x, y) {
+    var point = function(x, y) {
       context.fillRect(x, y, 1, 1);
+    };
+
+    var p = function(x, y) {
+      affectedPixels.push({x:x, y:y});
     };
 
     context.moveTo = function(x, y) {
@@ -55,7 +60,15 @@
        };
     };
 
-    context.point = p;
+    context.stroke = function() {
+      affectedPixels.forEach(function(pixel) {
+        point(pixel.x, pixel.y);
+      });
+
+      affectedPixels = [];
+    };
+
+    context.point = point;
 
     return context;
   };

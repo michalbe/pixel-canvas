@@ -68,7 +68,8 @@ window.onload = function() {
     ctx.lineTo(a, b);
     ctx.lineTo(c, d);
     ctx.lineTo(a1, b2);
-
+    ctx.stroke();
+    
     finalCtx.imageSmoothingEnabled = false;
     finalCtx.mozImageSmoothingEnabled = false;
     finalCtx.drawImage(canvas, 0, 0, 500, 500);
