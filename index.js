@@ -60,6 +60,27 @@
        };
     };
 
+
+    context.arc = function (xmiddle, ymiddle, radius,
+                            startAngle, endAngle, anticlockwise
+    ) {
+      var rad = endAngle - startAngle;
+      var deg = rad * 180/Math.PI;
+      var q = deg*2;
+      var x, y;
+      var xlast = -1;
+      var ylast = -1;
+      for (var i = 0; i <= q; i++) {
+        x = parseInt(xmiddle+(radius*Math.sin(i*(Math.PI/360)))+0.5, 10);
+        y = parseInt(ymiddle+(radius*Math.cos(i*(Math.PI/360)))+0.5, 10);
+        if (xlast != x || ylast != y) {
+          xlast = x;
+          ylast = y;
+          p(x, y);
+        }
+      }
+    };
+
     context.stroke = function() {
       affectedPixels.forEach(function(pixel) {
         point(pixel.x, pixel.y);
